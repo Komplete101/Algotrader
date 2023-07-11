@@ -9,5 +9,5 @@ from yahoofinancials import YahooFinancials
 
 stock = "TSLA"
 yahoo_financials = YahooFinancials(stock)
-data  = yahoo_financials.get_historical_price_data("2020-04-28", "2023-07-2","daily")                                   
+data  = yahoo_financials.get_historical_price_data("2020-04-28", "2023-07-05","daily")                                   
 #provide start date end date and period 
