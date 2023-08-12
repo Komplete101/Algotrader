@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-stocks = ["AAPL","MSFT","NVDA","INTC", "AMD"]
+stocks = ["AAPL","MSFT","NVDA","INTC", "AMD", "BBY"]
 income_statement_dict= {}
 balance_sheet_dict = {}
 cashflow_dict= {}
@@ -60,6 +60,8 @@ for stock in stocks:
     temp.columns = table_title["Breakdown"]
     cashflow_dict[stock] = temp
     
+    
+    
 for stock in stocks:
 
     url = 'https://finance.yahoo.com/quote/{}/balance-sheet?p={}&guccounter=1'.format(stock,stock)
@@ -82,3 +84,9 @@ for stock in stocks:
     temp = pd.DataFrame(balance_sheet).T
     temp.columns = table_title["Breakdown"]
     balance_sheet_dict[stock] = temp
+    
+for stock in stocks:
+    for col in income_statement_dict[stock].columns:
+        income_statement_dict[stock][col] = income_statement_dict[stock][col].str.replace(',|-','')
+        income_statement_dict[stock][col] = pd.to_numeric(income_statement_dict[stock][col], errors = "coerce")
+        
